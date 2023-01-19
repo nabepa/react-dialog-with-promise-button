@@ -1,9 +1,9 @@
 import { useRef } from 'react';
 import './App.css';
-import Button from './components/Button/Button';
 import ModalDialog, {
   ModalDialogHandler,
 } from './components/ModalDialog/ModalDialog';
+import { sleep } from './utils/sleep';
 
 function App() {
   const modalRef = useRef<ModalDialogHandler>(null);
@@ -22,20 +22,30 @@ function App() {
         ref={modalRef}
         title='TITLE'
         content='HELLO WORLD!'
-        primaryButton={{
-          children: 'PRIMARY',
-          onClick: () => {
-            return new Promise((resolve) => {
-              setTimeout(() => {
-                resolve();
-              }, 1000);
-            });
+        buttons={[
+          {
+            children: '0',
+            onClick: () => {},
           },
-        }}
-        secondaryButton={{
-          children: 'SECONDARY',
-          onClick: () => {},
-        }}
+          {
+            children: '1',
+            onClick: () => {
+              return sleep(1000);
+            },
+          },
+          {
+            children: '2',
+            onClick: () => {
+              return sleep(2000);
+            },
+          },
+          {
+            children: '3',
+            onClick: () => {
+              return sleep(3000);
+            },
+          },
+        ]}
       />
     </div>
   );

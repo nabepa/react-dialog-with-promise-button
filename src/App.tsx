@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import './App.css';
+import Button from './components/Button/Button';
 import ModalDialog, {
   ModalDialogHandler,
 } from './components/ModalDialog/ModalDialog';
@@ -17,7 +18,7 @@ function App() {
       ) : (
         <h1>Click the button to open the modal dialog.</h1>
       )}
-      <button
+      <Button
         onClick={async () => {
           const clickedButton = await modalRef.current?.open();
           if (clickedButton == null) return;
@@ -25,7 +26,7 @@ function App() {
         }}
       >
         open
-      </button>
+      </Button>
       <ModalDialog
         ref={modalRef}
         title='TITLE'

@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 import './App.css';
+import Button from './components/Button/Button';
 import ModalDialog, {
   ModalDialogHandler,
 } from './components/ModalDialog/ModalDialog';
@@ -22,11 +23,17 @@ function App() {
         title='TITLE'
         content='HELLO WORLD!'
         primaryButton={{
-          text: 'PRIMARY',
-          onClick: () => {},
+          children: 'PRIMARY',
+          onClick: () => {
+            return new Promise((resolve) => {
+              setTimeout(() => {
+                resolve();
+              }, 1000);
+            });
+          },
         }}
         secondaryButton={{
-          text: 'SECONDARY',
+          children: 'SECONDARY',
           onClick: () => {},
         }}
       />

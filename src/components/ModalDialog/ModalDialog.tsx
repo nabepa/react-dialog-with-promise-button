@@ -1,19 +1,15 @@
 import { forwardRef, memo, useImperativeHandle, useRef } from 'react';
+import Button, { ButtonProps } from '../Button/Button';
 
 export type ModalDialogHandler = {
   open: () => Promise<any>;
 };
 
-type Button = {
-  text: string;
-  onClick: () => void;
-};
-
 type Props = {
   title: string;
   content: string;
-  primaryButton: Button;
-  secondaryButton: Button;
+  primaryButton: ButtonProps;
+  secondaryButton: ButtonProps;
 };
 
 const ModalDialog = forwardRef<ModalDialogHandler, Props>(
@@ -57,21 +53,30 @@ const ModalDialog = forwardRef<ModalDialogHandler, Props>(
       <dialog ref={dialogRef}>
         <h1>{title}</h1>
         <p>{content}</p>
-        <button
-          onClick={(e) => {
-            e.target.dispatchEvent(new Event('primary', { bubbles: true }));
+        <Button
+          onClick={async (e) => {
+            try {
+              if (primaryButton.onClick == null) return;
+              await primaryButton.onClick(e);
+            } finally {
+              e.target.dispatchEvent(new Event('primary', { bubbles: true }));
+            }
           }}
         >
-          {primaryButton.text}
-        </button>
-        <button
-          name='secondary'
-          onClick={(e) => {
-            e.target.dispatchEvent(new Event('secondary', { bubbles: true }));
+          {primaryButton.children}
+        </Button>
+        <Button
+          onClick={async (e) => {
+            try {
+              if (secondaryButton.onClick == null) return;
+              await secondaryButton.onClick(e);
+            } finally {
+              e.target.dispatchEvent(new Event('secondary', { bubbles: true }));
+            }
           }}
         >
-          {secondaryButton.text}
-        </button>
+          {secondaryButton.children}
+        </Button>
       </dialog>
     );
   }

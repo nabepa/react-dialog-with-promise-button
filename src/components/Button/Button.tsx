@@ -10,7 +10,10 @@ type OnClick =
   | MouseEventHandler<HTMLButtonElement>
   | ((e: MouseEvent<HTMLButtonElement>) => Promise<void>);
 
-type ButtonProps = Omit<React.ComponentPropsWithoutRef<'button'>, 'onClick'> & {
+export type ButtonProps = Omit<
+  React.ComponentPropsWithoutRef<'button'>,
+  'onClick'
+> & {
   onClick?: OnClick | undefined;
 };
 

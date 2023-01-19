@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import './App.css';
 import ModalDialog, {
   ModalDialogHandler,
@@ -8,12 +8,20 @@ import { sleep } from './utils/sleep';
 function App() {
   const modalRef = useRef<ModalDialogHandler>(null);
 
+  const [buttonIdx, setButtonIdx] = useState<number>(-1);
+
   return (
     <div className='App'>
+      {buttonIdx !== -1 ? (
+        <h1>{`${buttonIdx} button is clicked!`}</h1>
+      ) : (
+        <h1>Click the button to open the modal dialog.</h1>
+      )}
       <button
         onClick={async () => {
           const clickedButton = await modalRef.current?.open();
-          console.log(`${clickedButton} button is clicked`);
+          if (clickedButton == null) return;
+          setButtonIdx(clickedButton);
         }}
       >
         open

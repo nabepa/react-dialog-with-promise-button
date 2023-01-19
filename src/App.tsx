@@ -13,7 +13,7 @@ function App() {
   return (
     <div className='App'>
       {buttonIdx !== -1 ? (
-        <h1>{`${buttonIdx} button is clicked!`}</h1>
+        <h1>{`Button ${buttonIdx} is clicked!`}</h1>
       ) : (
         <h1>Click the button to open the modal dialog.</h1>
       )}
